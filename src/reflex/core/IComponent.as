@@ -1,8 +1,10 @@
 package reflex.core
 {
 	import flash.events.IEventDispatcher;
+	
+	import reflex.style.IStyleClient;
 
-	public interface IComponent extends IEventDispatcher
+	public interface IComponent extends IEventDispatcher, IStyleClient
 	{
 		
 		function get skin():ISkin;

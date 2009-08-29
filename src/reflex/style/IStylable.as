@@ -3,7 +3,6 @@ package reflex.style
 	
 	public interface IStylable
 	{
-		
 		function get id():String;
 		function set id(value:String):void;
 		

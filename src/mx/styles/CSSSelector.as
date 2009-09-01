@@ -1,14 +1,14 @@
 package mx.styles
 {
-	import reflex.style.IStylable;
-	
 	import flash.display.DisplayObject;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
 
+
 	public class CSSSelector
 	{
+		protected var _property:String;
 		protected var _type:String;
 		protected var _conditions:Array;
 		protected var _ancestor:CSSSelector;
@@ -21,6 +21,12 @@ package mx.styles
 			_conditions = conditions;
 			_ancestor = ancestor;
 			_specificity = (type == "*" ? 1 : 0);
+			if (type != "*" && type.substr(0, 1).toLowerCase() == type.substr(0, 1)) {
+				_property = type; // if this isn't capitalized, it may be a property.
+				if (ancestor.property) {
+					_property + ancestor.property + "." + _property;
+				}
+			}
 			init();
 		}
 		
@@ -31,9 +37,14 @@ package mx.styles
 					_specificity += condition.specificity;
 				}
 				_conditions.sortOn("value");
-				_conditions.sortOn("type");
+				_conditions.sortOn("kind");
 				_conditions.sortOn("specificity", Array.NUMERIC);
 			}
+		}
+		
+		public function get property():String
+		{
+			return _property;
 		}
 		
 		public function get type():String
@@ -60,8 +71,12 @@ package mx.styles
 		{
 			var match:Boolean = false;
 			var condition:CSSCondition;
+			var parent:DisplayObject = obj is DisplayObject ? DisplayObject(obj).parent : null;
 			
-			if (_type != "*" && getTypes(obj).indexOf(_type) == -1) {
+			// if this is a property
+			if (ancestor && matchAncestors && _property) {
+				return ancestor.match(obj, matchAncestors, matchPseudos);
+			} else if (_type != "*" && getTypes(obj).indexOf(_type) == -1) {
 				return false;
 			}
 			
@@ -74,10 +89,8 @@ package mx.styles
 			}
 			
 			if (ancestor && matchAncestors && obj is DisplayObject) {
-				var parent:DisplayObject = obj as DisplayObject;
 				var selector:CSSSelector = ancestor;
 				while (selector != null) {
-					parent = parent.parent;
 					while (parent != null) {
 						if (selector.match(parent, false)) {
 							selector = selector.ancestor;

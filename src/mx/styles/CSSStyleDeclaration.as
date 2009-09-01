@@ -1,7 +1,7 @@
 package mx.styles
 {
 	import mx.core.mx_internal;
-	
+
 	public class CSSStyleDeclaration
 	{
 		protected var _styles:Object = {};

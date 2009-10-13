@@ -1,12 +1,12 @@
-package flame.progress
+package flame.position
 {
 	import flame.behaviors.Scroll;
 	
 	import reflex.core.Component;
-
-	public class Stepper extends Component
+	
+	public class ScrollBar extends Component
 	{
-		public function Stepper()
+		public function ScrollBar()
 		{
 			var b1:Scroll = new Scroll();
 		}

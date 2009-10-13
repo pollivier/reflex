@@ -1,4 +1,4 @@
-package flame.progress
+package flame.position
 {
 	import reflex.core.Component;
 

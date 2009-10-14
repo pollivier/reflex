@@ -1,7 +1,9 @@
 package flame.simple
 {
 	import flame.behaviors.Click;
-	import flame.behaviors.Select;
+	
+	import flight.binding.Bind;
+	import flight.events.PropertyEvent;
 	
 	import reflex.core.Component;
 	
@@ -10,7 +12,15 @@ package flame.simple
 		public function Button()
 		{
 			var b1:Click = new Click();
-			var b2:Select = new Select();
+				b1.target = this;
+			Bind.addListener(onStateChange, b1, "state");
+			//var b2:Select = new Select();
 		}
+		
+		private function onStateChange(event:PropertyEvent):void
+		{
+			trace(event.newValue);
+		}
+		
 	}
 }

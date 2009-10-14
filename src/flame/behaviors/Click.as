@@ -34,6 +34,13 @@ package flame.behaviors
 			value.addEventListener(ButtonEvent.RELEASE_OUTSIDE,		onReleaseOutside);
 		}
 		
+		public function click():void
+		{
+			InteractiveObject(target).dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+		}
+		
+		// ====== Event Listeners ====== //
+		
 		private function onPress(event:MouseEvent):void
 		{
 			state = DOWN;

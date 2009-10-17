@@ -1,5 +1,6 @@
 package flame.behaviors
 {
+	import flash.display.DisplayObjectContainer;
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
 	
@@ -24,6 +25,9 @@ package flame.behaviors
 		
 		override public function set target(value:Object):void
 		{
+			if (value is DisplayObjectContainer) {
+				DisplayObjectContainer(value).mouseChildren = false;
+			}
 			ButtonEvent.initialize(value as InteractiveObject);
 			value.addEventListener(ButtonEvent.PRESS,				onPress);
 			value.addEventListener(ButtonEvent.ROLL_OVER,			onRollOver);
@@ -32,6 +36,7 @@ package flame.behaviors
 			value.addEventListener(ButtonEvent.DRAG_OUT,			onDragOut);
 			value.addEventListener(ButtonEvent.RELEASE,				onRelease);
 			value.addEventListener(ButtonEvent.RELEASE_OUTSIDE,		onReleaseOutside);
+			super.target = value;
 		}
 		
 		public function click():void

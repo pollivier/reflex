@@ -3,6 +3,7 @@ package flame.simple
 	import flame.behaviors.Click;
 	import flame.behaviors.Select;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Graphics;
 	import flash.geom.Matrix;
 	
@@ -13,6 +14,9 @@ package flame.simple
 	
 	public class Button extends Component
 	{
+		public var label:String;
+		public var icon:DisplayObject;
+		
 		public var click:Click = new Click();
 		public var select:Select = new Select();
 		
